@@ -1,0 +1,15 @@
+:root {
+  /* Backgrounds */
+  --bg-primary: #111111;
+  --bg-secondary: #1A1A1A;
+  --bg-tertiary: #222222;
+
+  /* Sand / Accent */
+  --sand-primary: #D6C6A1;
+  --sand-secondary: #CBB98B;
+  --sand-muted: #B8AA86;
+
+  /* Text */
+  --text-primary: #F5F5F5;
+  --text-secondary: #BFBFBF;
+}
