@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate, Link as RouterLink } from 'react-router-dom'
+import { sendEmail } from '../mail'
 
 import Grid from '@mui/material/Grid'
 
@@ -72,11 +73,13 @@ export default function Request() {
 
   const onBlur = (key) => () => setTouched((prev) => ({ ...prev, [key]: true }))
 
+  
   const markAllTouched = () => {
     const all = {}
     Object.keys(initialForm).forEach((k) => (all[k] = true))
     setTouched(all)
   }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -85,16 +88,32 @@ export default function Request() {
     if (Object.keys(errors).length > 0) return
 
     setSubmitting(true)
+
+    try {
+    await sendEmail({
+      name: "test",
+      email: "test",
+      message: "test",
+    });
+
+    alert("Email sent!");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to send email");
+  }
+  navigate('/thanks')
+    /*
     try {
       // TODO: send to backend / email / Google Sheets
-      await new Promise((r) => setTimeout(r, 500))
+      //await new Promise((r) => setTimeout(r, 500))
 
       sessionStorage.setItem('coreluxurycar_last_request', JSON.stringify(form))
       navigate('/thanks')
     } finally {
       setSubmitting(false)
-    }
+    }*/
   }
+  
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', py: 6 }}>
