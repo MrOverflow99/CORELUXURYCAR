@@ -15,6 +15,7 @@ import {
   Select,
   MenuItem,
   FormControlLabel,
+  FormHelperText,
   Checkbox,
   Button,
   Divider,
@@ -29,10 +30,10 @@ const initialForm = {
   dropoff: '',
   date: '',
   time: '',
-  tripType: 'one_way', // one_way | return
-  passengers: 1,
-  luggage: 0,
-  vehicle: 'sedan', // sedan | suv | van
+  tripType: '', // one_way | return
+  passengers: '',
+  luggage: '',
+  // vehicle: 'sedan', // sedan | suv | van
   childSeat: false,
   notes: '',
   acceptPrivacy: false,
@@ -54,6 +55,9 @@ export default function Request() {
     if (!form.dropoff.trim()) e.dropoff = 'Required'
     if (!form.date) e.date = 'Required'
     if (!form.time) e.time = 'Required'
+    if (!form.tripType) e.tripType = 'Required'           // stringa vuota ''
+    if (!form.passengers) e.passengers = 'Required'      // numero (0 è falsey)
+    if (!form.luggage && form.luggage !== 0) e.luggage = 'Required'
     if (!form.acceptPrivacy) e.acceptPrivacy = 'You must accept the privacy policy'
 
     if (form.email && !/^\S+@\S+\.\S+$/.test(form.email)) {
@@ -93,7 +97,8 @@ export default function Request() {
     await sendEmail({
       name: "test",
       email: "test",
-      message: "test",
+      message: "test",  
+      passengers: "test",    
     });
 
     alert("Email sent!");
@@ -242,41 +247,79 @@ export default function Request() {
               </Grid>
 
               <Grid size={{ xs: 12, md: 4 }}>
-                <FormControl fullWidth>
+                <FormControl fullWidth error={hasError('tripType')}>
                   <InputLabel>Trip type</InputLabel>
-                  <Select value={form.tripType} label="Trip type" onChange={onChange('tripType')}>
+                  <Select
+                    value={form.tripType}
+                    label="Trip type"
+                    onChange={onChange('tripType')}
+                    onBlur={onBlur('tripType')}
+                  >
                     <MenuItem value="one_way">One-way</MenuItem>
                     <MenuItem value="return">Return</MenuItem>
                   </Select>
+
+                  <FormHelperText>
+                    {hasError('tripType') ? errors.tripType : ' '}
+                  </FormHelperText>
                 </FormControl>
               </Grid>
 
               <Grid size={{ xs: 12, md: 4 }}>
-                <FormControl fullWidth>
+                <FormControl fullWidth error={hasError('passengers')}>
                   <InputLabel>Passengers</InputLabel>
-                  <Select value={form.passengers} label="Passengers" onChange={onChange('passengers')}>
+                  <Select 
+                   value={form.passengers} 
+                   label="Passengers" 
+                   onChange={onChange('passengers')}
+                   error={hasError('passengers')}
+                  >
+
+                    <MenuItem value="" disabled>
+                      <em>Select number of passengers</em>
+                    </MenuItem>
+
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                       <MenuItem key={n} value={n}>
                         {n}
                       </MenuItem>
                     ))}
                   </Select>
+                  <FormHelperText>
+                    {hasError('passengers') ? 'Required' : ' '}
+                  </FormHelperText>
                 </FormControl>
               </Grid>
 
               <Grid size={{ xs: 12, md: 4 }}>
-                <FormControl fullWidth>
-                  <InputLabel>Luggage</InputLabel>
-                  <Select value={form.luggage} label="Luggage" onChange={onChange('luggage')}>
+                <FormControl fullWidth error={hasError('luggage')}>
+                  <InputLabel>Luggages</InputLabel>
+                  <Select 
+                    value={form.luggage} 
+                    label="Luggage" 
+                    onChange={onChange('luggage')}
+                    onBlur={onBlur('luggage')}
+                    error={hasError('luggage')}
+                  >
+                    <MenuItem value="" disabled>
+                      <em>Select number of Luggages</em>
+                    </MenuItem>
+
                     {[0, 1, 2, 3, 4, 5, 6].map((n) => (
                       <MenuItem key={n} value={n}>
                         {n}
                       </MenuItem>
                     ))}
                   </Select>
+                  <FormHelperText>
+                    {hasError('luggage') ? 'Required' : ' '}
+                  </FormHelperText>
                 </FormControl>
               </Grid>
 
+              
+
+                    {/*}
               <Grid size={{ xs: 12, md: 6 }}>
                 <FormControl fullWidth>
                   <InputLabel>Vehicle preference</InputLabel>
@@ -287,6 +330,7 @@ export default function Request() {
                   </Select>
                 </FormControl>
               </Grid>
+                    {*/}
 
               <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', alignItems: 'center' }}>
                 <FormControlLabel
