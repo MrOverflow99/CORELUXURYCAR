@@ -95,9 +95,9 @@ export default function Request() {
 
     try {
     await sendEmail({
-      name: "test",
+      name: form.fullName,
       email: "test",
-      message: "test",  
+      message: form.notes,  
       passengers: "test",    
     });
 
