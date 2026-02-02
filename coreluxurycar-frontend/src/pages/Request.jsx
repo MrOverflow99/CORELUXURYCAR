@@ -140,7 +140,7 @@ export default function Request() {
             border: '1px solid rgba(214,198,161,0.15)',
           }}
         >
-          <Box component="form" onSubmit={handleSubmit} noValidate>
+          <Box component="form" autoComplete='on' onSubmit={handleSubmit} >
             {/* CONTACT */}
             <Typography sx={{ color: 'var(--text-primary)', fontWeight: 600, mb: 1 }}>
               Contact details
