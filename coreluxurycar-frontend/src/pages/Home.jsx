@@ -1,6 +1,7 @@
 import { Link as RouterLink } from "react-router-dom"
 import { Box, Container, Typography, Button, Grid, Card, CardContent } from "@mui/material"
 import { motion } from "framer-motion"
+import WhatsAppButton from "../components/WhatsAppButton"
 
 // Simple reusable reveal wrapper (in this same file)
 const MotionBox = motion(Box)
@@ -126,6 +127,11 @@ export default function Home() {
               REQUEST A RIDE
             </Button>
           </Reveal>
+
+          <Reveal from="up" delay={0.16}>
+              <WhatsAppButton/>
+          </Reveal>
+
         </Container>
       </Box>
 
