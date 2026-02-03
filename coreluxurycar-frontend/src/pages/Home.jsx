@@ -102,7 +102,7 @@ export default function Home() {
               variant="h2"
               sx={{ color: "var(--sand-primary)", fontWeight: 500, letterSpacing: 1 }}
             >
-              Core Luxury Car
+              CoreLuxuryCar
             </Typography>
           </Reveal>
 
