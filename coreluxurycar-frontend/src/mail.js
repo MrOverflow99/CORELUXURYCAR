@@ -1,16 +1,26 @@
 import emailjs from "@emailjs/browser";
 
-export function sendEmail({ name, email, message }) {
+export function sendEmail({ name,phone,email,pickup,dropoff,date,hour,type,psg,lg,cs,note}) {
   return emailjs.send(
     import.meta.env.VITE_EMAILJS_SERVICE_ID,
     import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
     {
-      from_name: name,
-      reply_to: email,
-      message,
+      name: name,
+      phone: phone,
+      email: email,
+      pickup: pickup,    
+      dropoff: dropoff, 
+      date: date,
+      hour : hour,
+      type: type,
+      psg : psg,
+      lg: lg,
+      child: cs,
+      note: note
     },
     {
       publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
     }
   );
 }
+

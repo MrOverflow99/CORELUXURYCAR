@@ -96,9 +96,17 @@ export default function Request() {
     try {
     await sendEmail({
       name: form.fullName,
-      email: "test",
-      message: form.notes,  
-      passengers: "test",    
+      phone: form.phone,
+      email: form.email,
+      pickup: form.pickup,    
+      dropoff: form.dropoff, 
+      date: form.date,
+      hour : form.time,
+      type: form.tripType,
+      psg : form.passengers,
+      lg: form.luggage,
+      cs: form.child,
+      note: form.notes
     });
 
     alert("Email sent!");
