@@ -262,6 +262,16 @@ export default function Request() {
                     label="Trip type"
                     onChange={onChange('tripType')}
                     onBlur={onBlur('tripType')}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          mt: 1,
+                          backgroundColor: 'var(--bg-secondary)',
+                          border: '1px solid var(--sand-primary)',
+                          borderRadius: 2,
+                        },
+                      },
+                    }}
                   >
                     <MenuItem value="one_way">One-way</MenuItem>
                     <MenuItem value="return">Return</MenuItem>
@@ -281,13 +291,24 @@ export default function Request() {
                    label="Passengers" 
                    onChange={onChange('passengers')}
                    error={hasError('passengers')}
+                   MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          maxHeight: 48 * 8,
+                          mt: 1,
+                          backgroundColor: 'var(--bg-secondary)',
+                          border: '1px solid var(--sand-primary)',
+                          borderRadius: 2,
+                        },
+                      },
+                    }}
                   >
 
                     <MenuItem value="" disabled>
                       <em>Select number of passengers</em>
                     </MenuItem>
 
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27].map((n) => (
                       <MenuItem key={n} value={n}>
                         {n}
                       </MenuItem>
@@ -308,12 +329,23 @@ export default function Request() {
                     onChange={onChange('luggage')}
                     onBlur={onBlur('luggage')}
                     error={hasError('luggage')}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          maxHeight: 48 * 8,
+                          mt: 1,
+                          backgroundColor: 'var(--bg-secondary)',
+                          border: '1px solid var(--sand-primary)',
+                          borderRadius: 2,
+                        },
+                      },
+                    }}
                   >
                     <MenuItem value="" disabled>
                       <em>Select number of Luggages</em>
                     </MenuItem>
 
-                    {[0, 1, 2, 3, 4, 5, 6].map((n) => (
+                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map((n) => (
                       <MenuItem key={n} value={n}>
                         {n}
                       </MenuItem>
