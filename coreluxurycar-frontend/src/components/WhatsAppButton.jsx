@@ -18,7 +18,7 @@ function WhatsAppButton (){
       rel="noopener noreferrer"
       endIcon={<WhatsAppIcon/>}
     >
-    Request On WhatsApp
+    REQUEST VIA WHATSAPP
     </Button>
     )
 

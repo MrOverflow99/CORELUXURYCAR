@@ -1,4 +1,5 @@
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container, Typography, Button } from '@mui/material'
+import { Link as RouterLink } from 'react-router-dom'
 
 export default function Privacy() {
   return (
@@ -10,6 +11,17 @@ export default function Privacy() {
         <Typography sx={{ color: 'var(--text-secondary)' }}>
           Coming soon.
         </Typography>
+         <Button
+                variant="outlined"
+                component={RouterLink}
+                to="/home"
+                sx={{
+                    borderColor: 'rgba(214,198,161,0.6)',
+                    color: 'var(--sand-primary)',
+                    '&:hover': { borderColor: 'var(--sand-primary)' },
+                  }}>
+                Back to Home
+              </Button>
       </Container>
     </Box>
   )

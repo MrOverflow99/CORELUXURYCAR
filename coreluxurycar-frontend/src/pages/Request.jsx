@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react'
 import { useNavigate, Link as RouterLink } from 'react-router-dom'
 import { sendEmail } from '../mail'
-
 import Grid from '@mui/material/Grid'
+import { matchIsValidTel, MuiTelInput } from 'mui-tel-input'
 
 import {
   Box,
@@ -25,6 +25,7 @@ import {
 const initialForm = {
   fullName: '',
   email: '',
+  // viaMail: false,
   phone: '',
   pickup: '',
   dropoff: '',
@@ -50,7 +51,8 @@ export default function Request() {
     const e = {}
     if (!form.fullName.trim()) e.fullName = 'Required'
     if (!form.email.trim()) e.email = 'Required'
-    if (!form.phone.trim()) e.phone = 'Required'
+    if (form.phone && !matchIsValidTel(form.phone)) {
+      e.phone = 'Invalid phone number'}
     if (!form.pickup.trim()) e.pickup = 'Required'
     if (!form.dropoff.trim()) e.dropoff = 'Required'
     if (!form.date) e.date = 'Required'
@@ -115,6 +117,7 @@ export default function Request() {
     alert("Failed to send email");
   }
   navigate('/thanks')
+
     /*
     try {
       // TODO: send to backend / email / Google Sheets
@@ -167,17 +170,31 @@ export default function Request() {
                 />
               </Grid>
 
+              
               <Grid size={{ xs: 12, md: 6 }}>
-                <TextField
+                <MuiTelInput
                   fullWidth
                   label="Phone (WhatsApp)"
+                  defaultCountry="ES"
                   value={form.phone}
-                  onChange={onChange('phone')}
+                  onChange={(value) => setForm((prev) => ({ ...prev, phone: value }))}
                   onBlur={onBlur('phone')}
                   error={hasError('phone')}
+                  MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          maxHeight: 48 * 8,
+                          mt: 1,
+                          backgroundColor: 'var(--bg-secondary)',
+                          border: '1px solid var(--sand-primary)',
+                          borderRadius: 2,
+                        },
+                      },
+                    }}
                   helperText={hasError('phone') ? errors.phone : ' '}
                 />
               </Grid>
+
 
               <Grid size={{ xs: 12 }}>
                 <TextField
@@ -191,6 +208,17 @@ export default function Request() {
                 />
               </Grid>
             </Grid>
+
+
+              {/*}
+            <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', alignItems: 'center' }}>
+                <FormControlLabel
+                  control={<Checkbox checked={form.viaMail} onChange={onChange('viaMail')} />}
+                  label="I prefer to be contacted via E-mail"
+                />
+              </Grid>
+
+              {*/}
 
             <Divider sx={{ my: 3, borderColor: 'rgba(255,255,255,0.08)' }} />
 

@@ -108,7 +108,7 @@ export default function Home() {
 
           <Reveal from="right" delay={0.08}>
             <Typography sx={{ color: "var(--text-secondary)", mt: 2, fontSize: 18 }}>
-              Luxury chauffeur service in Ibiza — request your ride in minutes.
+              This webpage is still under development. We are COREstructing for you.
             </Typography>
           </Reveal>
 
@@ -140,7 +140,7 @@ export default function Home() {
         {/* WHY US */}
         <Section
           title="Why us?"
-          subtitle="Placeholder content to test scroll animations. Replace with your real copy later."
+          subtitle="Lorem Ipsum"
         >
           <Grid container spacing={3}>
             {[
@@ -157,7 +157,8 @@ export default function Home() {
           </Grid>
         </Section>
 
-        {/* RATINGS */}
+        {/* RATINGS 
+
         <Section
           title="Ratings from our customers"
           subtitle="Fake testimonials for now — just to see the effect."
@@ -177,10 +178,12 @@ export default function Home() {
           </Grid>
         </Section>
 
+        */}
+
         {/* WHERE ARE WE */}
         <Section
           title="Where are we"
-          subtitle="Later you can swap this for a map embed. For now: cards."
+          subtitle="Lorem Ipsum"
         >
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
@@ -205,7 +208,7 @@ export default function Home() {
         {/* LICENSE */}
         <Section
           title="Our license"
-          subtitle="Random body content just to test layout + animation."
+          subtitle="Lorem Ipsum"
         >
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
