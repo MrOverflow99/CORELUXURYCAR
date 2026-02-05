@@ -1,4 +1,5 @@
 import {Button} from  '@mui/material'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 function WhatsAppButton (){
 
@@ -15,6 +16,7 @@ function WhatsAppButton (){
       href={url}
       target="_blank"
       rel="noopener noreferrer"
+      endIcon={<WhatsAppIcon/>}
     >
     Request On WhatsApp
     </Button>
