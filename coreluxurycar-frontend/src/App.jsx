@@ -6,10 +6,12 @@ import Request from './pages/Request.jsx'
 import Thanks from './pages/Thanks.jsx'
 import Privacy from './pages/Privacy.jsx'
 import Footer from './components/Footer.jsx'
+import Navbar from './components/Navbar.jsx'
 
 export default function App() {
   return (
     <Box sx= {{ minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
+      <Navbar/>
       <Box sx = {{flex: 1}}>
         <Routes>
           <Route path="/" element={<Home />} />
