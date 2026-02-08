@@ -11,6 +11,11 @@ function WhatsAppButton (){
 
     return (
     <Button
+      sx={{
+        color: "#111",
+        px: 4,
+        py: 1.2,
+      }}
       variant="contained"
       color="success"
       href={url}

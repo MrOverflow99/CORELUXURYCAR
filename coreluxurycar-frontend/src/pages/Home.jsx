@@ -1,5 +1,5 @@
 import { Link as RouterLink } from "react-router-dom"
-import { Box, Container, Typography, Button, Grid, Card, CardContent } from "@mui/material"
+import { Box, Container, Typography, Button, Grid, Card, CardContent, Stack } from "@mui/material"
 import { motion } from "framer-motion"
 import WhatsAppButton from "../components/WhatsAppButton"
 
@@ -88,7 +88,7 @@ function InfoCard({ title, body }) {
 export default function Home() {
   return (
     <Box sx={{ backgroundColor: "var(--bg-primary)" }}>
-      {/* HERO (your original block, just wrapped in Reveal) */}
+    
       <Box
         sx={{
           minHeight: "100vh",
@@ -113,23 +113,30 @@ export default function Home() {
           </Reveal>
 
           <Reveal from="up" delay={0.16}>
-            <Button
-              component={RouterLink}
-              to="/request"
-              variant="contained"
-              sx={{
-                mt: 4,
-                backgroundColor: "var(--sand-primary)",
-                color: "#111",
-                "&:hover": { backgroundColor: "var(--sand-secondary)" },
-              }}
+            <Stack
+              direction="column"
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
+              mt={4}
             >
-              REQUEST A RIDE
-            </Button>
-          </Reveal>
-
-          <Reveal from="up" delay={0.16}>
-              <WhatsAppButton/>
+              <Button
+                component={RouterLink}
+                to="/request"
+                variant="contained"
+                sx={{
+                  backgroundColor: "var(--sand-primary)",
+                  color: "#111",
+                  px: 4,
+                  py: 1.2,
+                  "&:hover": { backgroundColor: "var(--sand-secondary)" },
+                }}
+              >
+                REQUEST A RIDE
+              </Button>
+              
+              <WhatsAppButton />
+            </Stack>
           </Reveal>
 
         </Container>

@@ -21,8 +21,10 @@ export default function Footer() {
         </Typography>
 
         <Typography sx={{ color: 'var(--text-secondary)', mb: 2 }}>
-          Luxury chauffeur service in Ibiza — booking requests & private transfers.
+          Luxury chauffeur service in <Link href="https://maps.google.com/?q=Ibiza">Ibiza</Link> — booking requests & private transfers.
         </Typography>
+
+      
 
         <Divider sx={{ my: 2, borderColor: 'rgba(255,255,255,0.08)' }} />
 
@@ -48,6 +50,7 @@ export default function Footer() {
             © {year} CoreLuxuryCar. All rights reserved.
           </Typography>
         </Box>
+
       </Container>
     </Box>
     </>
