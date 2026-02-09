@@ -16,6 +16,7 @@ export default function Privacy() {
                 component={RouterLink}
                 to="/home"
                 sx={{
+                    mt: 3,
                     borderColor: 'rgba(214,198,161,0.6)',
                     color: 'var(--sand-primary)',
                     '&:hover': { borderColor: 'var(--sand-primary)' },

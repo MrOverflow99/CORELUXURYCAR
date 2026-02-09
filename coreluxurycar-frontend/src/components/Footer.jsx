@@ -16,11 +16,11 @@ export default function Footer() {
       }}
     >
       <Container maxWidth="md">
-        <Typography sx={{ color: 'var(--sand-primary)', fontWeight: 600, mb: 1 }}>
-          CoreLuxuryCar
-        </Typography>
+         <Link component={RouterLink} to="/home" underline="hover" sx={{ color: 'var(--sand-primary)' }}>
+              CoreLuxuryCar
+            </Link>
 
-        <Typography sx={{ color: 'var(--text-secondary)', mb: 2 }}>
+        <Typography sx={{ color: 'var(--text-secondary)', mb: 2, mt:2}}>
           Luxury chauffeur service in <Link href="https://maps.google.com/?q=Ibiza">Ibiza</Link> — booking requests & private transfers.
         </Typography>
 
@@ -38,6 +38,9 @@ export default function Footer() {
           }}
         >
           <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+            <Link component={RouterLink} to="/home" underline="hover" sx={{ color: 'var(--sand-primary)' }}>
+              Home
+            </Link>
             <Link component={RouterLink} to="/request" underline="hover" sx={{ color: 'var(--sand-primary)' }}>
               Request a Ride
             </Link>
