@@ -97,17 +97,11 @@ function InfoCard({ title, body }) {
 }
 
 function HeroSection() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  const desktopVideo = "/Hero4K_4K.mp4";         
-  const mobileVideo  = "/HeroMobile1.mp4";
-
   return (
     <Box
       sx={{
         position: "relative",
-        height: { xs: '80vh', sm: '90vh', md: '100vh' },  
+        height: { xs: "80vh", sm: "90vh", md: "100vh" },
         display: "flex",
         alignItems: "center",
         overflow: "hidden",
@@ -115,34 +109,47 @@ function HeroSection() {
         pt: 0,
       }}
     >
-<Box
-  component="video"
-  autoPlay
-  loop
-  muted
-  playsInline
-  key={isMobile ? 'mobile-video' : 'desktop-video'} 
-  sx={{
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "auto",
-    objectFit: "contain",
-    filter: "brightness(0.78) contrast(1.12) saturate(0.65)",
-    inset: 0,
-    background: "rgba(0, 0, 0, 0.68)",
-    zIndex: 0,
-  }}
->
-  <source src={isMobile ? mobileVideo : desktopVideo} type="video/mp4" />
-</Box>
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          zIndex: 0,
+        }}
+      >
+        <Box
+          component="video"
+          autoPlay
+          loop
+          muted
+          playsInline
+          sx={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            filter: "brightness(0.78) contrast(1.12) saturate(0.65)",
+            backgroundColor: "rgba(0, 0, 0, 0.68)", 
+          }}
+        >
+          <source
+            src="/HeroMobile1.mp4"
+            type="video/mp4"
+            media="(max-aspect-ratio: 3/4) or (orientation: portrait)"
+          />
+          <source src="/Hero4K_4K.mp4" type="video/mp4" />
+
+        </Box>
+      </Box>
 
       <Box
         sx={{
           position: "absolute",
           inset: 0,
-          background: "rgba(0, 0, 0, 0.52)", 
+          background: "rgba(0, 0, 0, 0.52)",
           zIndex: 1,
         }}
       />
@@ -151,7 +158,7 @@ function HeroSection() {
         maxWidth="md"
         sx={{
           position: "relative",
-          zIndex: 2,                   
+          zIndex: 2,
           textAlign: "center",
           py: 8,
         }}
@@ -159,20 +166,21 @@ function HeroSection() {
         <Reveal from="left">
           <Typography
             variant="h2"
-            sx={{ color: "var(--sand-primary)", fontWeight: 500, letterSpacing: 1,
-              fontSize: { 
-                xs: '2.4rem',     
-                sm: '3.2rem',    
-                md: '4.5rem',     
-              },
-             }}
+            sx={{
+              color: "var(--sand-primary)",
+              fontWeight: 500,
+              letterSpacing: 1,
+              fontSize: { xs: "2.4rem", sm: "3.2rem", md: "4.5rem" },
+            }}
           >
             CoreLuxuryCar
           </Typography>
         </Reveal>
 
         <Reveal from="right" delay={0.08}>
-          <Typography sx={{ color: "var(--text-secondary)", mt: 2, fontSize: 18 }}>
+          <Typography
+            sx={{ color: "var(--text-secondary)", mt: 2, fontSize: 18 }}
+          >
             This webpage is still under development. We are COREstructing for you.
           </Typography>
         </Reveal>
@@ -210,7 +218,7 @@ function HeroSection() {
 
 export default function Home() {
   return (
-    <Box sx={{ backgroundColor: "var(--bg-primary)" }}>
+    <Box sx={{ backgroundColor: "var(--bg-primary)" , overflowX: "hidden",}}>
       <HeroSection />
 
       <Container maxWidth="lg" sx={{ pb: 10 }}>
