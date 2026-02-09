@@ -36,6 +36,7 @@ const initialForm = {
   luggage: '',
   // vehicle: 'sedan', // sedan | suv | van
   childSeat: false,
+  pet: false,
   notes: '',
   acceptPrivacy: false,
 }
@@ -107,7 +108,8 @@ export default function Request() {
       type: form.tripType,
       psg : form.passengers,
       lg: form.luggage,
-      cs: form.child,
+      cs: form.childSeat,
+      pet: form.pet,
       note: form.notes
     });
 
@@ -404,6 +406,13 @@ export default function Request() {
                 <FormControlLabel
                   control={<Checkbox checked={form.childSeat} onChange={onChange('childSeat')} />}
                   label="Child seat required"
+                />
+              </Grid>
+
+              <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', alignItems: 'center' }}>
+                <FormControlLabel
+                  control={<Checkbox checked={form.pet} onChange={onChange('pet')} />}
+                  label="Traveling with a Pet"
                 />
               </Grid>
 

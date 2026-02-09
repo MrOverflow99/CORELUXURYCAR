@@ -1,12 +1,17 @@
 import emailjs from "@emailjs/browser";
 
-export function sendEmail({ name,phone,email,pickup,dropoff,date,hour,type,psg,lg,cs,note}) {
+export function sendEmail({ name,phone,email,pickup,dropoff,date,hour,type,psg,lg,cs,pet,note}) {
 
     var childs = 'No'
+    var pets = 'No'
 
 
     if(cs){ 
       childs = 'Yes'
+    }
+
+    if(pet){ 
+      pets = 'Yes'
     }
 
    
@@ -26,6 +31,7 @@ export function sendEmail({ name,phone,email,pickup,dropoff,date,hour,type,psg,l
       psg : psg,
       lg: lg,
       child: childs,
+      pets: pets,
       note: note
     },
     {

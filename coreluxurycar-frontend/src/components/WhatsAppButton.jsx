@@ -3,7 +3,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 function WhatsAppButton (){
 
-    const phone = import.meta.env.VITE_PHONE_NUMBER_TEST;
+    const phone = import.meta.env.VITE_PHONE_NUMBER;
     const message = import.meta.env.VITE_WHATSAPP_DEFAULT_MESSAGE;
 
 
