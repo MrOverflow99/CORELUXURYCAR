@@ -1,15 +1,25 @@
+import { Link as RouterLink } from "react-router-dom";
+import {
+  Box,
+  Container,
+  Typography,
+  Button,
+  Grid,
+  Card,
+  CardContent,
+  Stack,
+} from "@mui/material";
+import { motion } from "framer-motion";
+import WhatsAppButton from "../components/WhatsAppButton";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
-import { Link as RouterLink } from "react-router-dom"
-import { Box, Container, Typography, Button, Grid, Card, CardContent, Stack } from "@mui/material"
-import { motion } from "framer-motion"
-import WhatsAppButton from "../components/WhatsAppButton"
-
-// Simple reusable reveal wrapper (in this same file)
-const MotionBox = motion(Box)
+// ── Reusable reveal wrapper ────────────────────────────────────────
+const MotionBox = motion(Box);
 
 function Reveal({
   children,
-  from = "left", // "left" | "right" | "up" | "down"
+  from = "left",
   delay = 0,
   duration = 0.6,
   distance = 40,
@@ -22,7 +32,7 @@ function Reveal({
       ? { x: distance, y: 0 }
       : from === "up"
       ? { x: 0, y: -distance }
-      : { x: 0, y: distance }
+      : { x: 0, y: distance };
 
   return (
     <MotionBox
@@ -37,7 +47,7 @@ function Reveal({
     >
       {children}
     </MotionBox>
-  )
+  );
 }
 
 function Section({ title, subtitle, children }) {
@@ -62,7 +72,7 @@ function Section({ title, subtitle, children }) {
 
       {children}
     </Box>
-  )
+  );
 }
 
 function InfoCard({ title, body }) {
@@ -83,73 +93,129 @@ function InfoCard({ title, body }) {
         </Typography>
       </CardContent>
     </Card>
-  )
+  );
+}
+
+function HeroSection() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const desktopVideo = "/Hero4K_4K.mp4";         
+  const mobileVideo  = "/HeroMobile1.mp4";
+
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        height: { xs: '80vh', sm: '90vh', md: '100vh' },  
+        display: "flex",
+        alignItems: "center",
+        overflow: "hidden",
+        mt: 0,
+        pt: 0,
+      }}
+    >
+<Box
+  component="video"
+  autoPlay
+  loop
+  muted
+  playsInline
+  key={isMobile ? 'mobile-video' : 'desktop-video'} 
+  sx={{
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "auto",
+    objectFit: "contain",
+    filter: "brightness(0.78) contrast(1.12) saturate(0.65)",
+    inset: 0,
+    background: "rgba(0, 0, 0, 0.68)",
+    zIndex: 0,
+  }}
+>
+  <source src={isMobile ? mobileVideo : desktopVideo} type="video/mp4" />
+</Box>
+
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0, 0, 0, 0.52)", 
+          zIndex: 1,
+        }}
+      />
+
+      <Container
+        maxWidth="md"
+        sx={{
+          position: "relative",
+          zIndex: 2,                   
+          textAlign: "center",
+          py: 8,
+        }}
+      >
+        <Reveal from="left">
+          <Typography
+            variant="h2"
+            sx={{ color: "var(--sand-primary)", fontWeight: 500, letterSpacing: 1,
+              fontSize: { 
+                xs: '2.4rem',     
+                sm: '3.2rem',    
+                md: '4.5rem',     
+              },
+             }}
+          >
+            CoreLuxuryCar
+          </Typography>
+        </Reveal>
+
+        <Reveal from="right" delay={0.08}>
+          <Typography sx={{ color: "var(--text-secondary)", mt: 2, fontSize: 18 }}>
+            This webpage is still under development. We are COREstructing for you.
+          </Typography>
+        </Reveal>
+
+        <Reveal from="up" delay={0.16}>
+          <Stack
+            direction="column"
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+            mt={4}
+          >
+            <Button
+              component={RouterLink}
+              to="/request"
+              variant="contained"
+              sx={{
+                backgroundColor: "var(--sand-primary)",
+                color: "#111",
+                px: 4,
+                py: 1.2,
+                "&:hover": { backgroundColor: "var(--sand-secondary)" },
+              }}
+            >
+              REQUEST A RIDE
+            </Button>
+
+            <WhatsAppButton />
+          </Stack>
+        </Reveal>
+      </Container>
+    </Box>
+  );
 }
 
 export default function Home() {
   return (
     <Box sx={{ backgroundColor: "var(--bg-primary)" }}>
-    
-      <Box
-        sx={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Container maxWidth="md" sx={{ textAlign: "center", py: 8 }}>
-          <Reveal from="left">
-            <Typography
-              variant="h2"
-              sx={{ color: "var(--sand-primary)", fontWeight: 500, letterSpacing: 1 }}
-            >
-              CoreLuxuryCar
-            </Typography>
-          </Reveal>
+      <HeroSection />
 
-          <Reveal from="right" delay={0.08}>
-            <Typography sx={{ color: "var(--text-secondary)", mt: 2, fontSize: 18 }}>
-              This webpage is still under development. We are COREstructing for you.
-            </Typography>
-          </Reveal>
-
-          <Reveal from="up" delay={0.16}>
-            <Stack
-              direction="column"
-              spacing={2}
-              justifyContent="center"
-              alignItems="center"
-              mt={4}
-            >
-              <Button
-                component={RouterLink}
-                to="/request"
-                variant="contained"
-                sx={{
-                  backgroundColor: "var(--sand-primary)",
-                  color: "#111",
-                  px: 4,
-                  py: 1.2,
-                  "&:hover": { backgroundColor: "var(--sand-secondary)" },
-                }}
-              >
-                REQUEST A RIDE
-              </Button>
-              
-              <WhatsAppButton />
-            </Stack>
-          </Reveal>
-
-        </Container>
-      </Box>
-      
-      {/* CONTENT BELOW HERO */}
       <Container maxWidth="lg" sx={{ pb: 10 }}>
         {/* WHY US */}
-        <Section
-          title="Why us?"
-          subtitle="Lorem Ipsum"
-        >
+        <Section title="Why us?" subtitle="Lorem Ipsum">
           <Grid container spacing={3}>
             {[
               { title: "Premium fleet", body: "Top-tier vehicles, always clean and ready (placeholder)." },
@@ -165,34 +231,8 @@ export default function Home() {
           </Grid>
         </Section>
 
-        {/* RATINGS 
-
-        <Section
-          title="Ratings from our customers"
-          subtitle="Fake testimonials for now — just to see the effect."
-        >
-          <Grid container spacing={3}>
-            {[
-              { title: "⭐️⭐️⭐️⭐️⭐️", body: "“Perfect service, super smooth.” — Alex" },
-              { title: "⭐️⭐️⭐️⭐️⭐️", body: "“On time and very professional.” — Martina" },
-              { title: "⭐️⭐️⭐️⭐️⭐️", body: "“Best chauffeur in Ibiza.” — Javier" },
-            ].map((c, i) => (
-              <Grid item xs={12} md={4} key={i}>
-                <Reveal from={i % 2 === 0 ? "right" : "left"} delay={i * 0.08}>
-                  <InfoCard title={c.title} body={c.body} />
-                </Reveal>
-              </Grid>
-            ))}
-          </Grid>
-        </Section>
-
-        */}
-
         {/* WHERE ARE WE */}
-        <Section
-          title="Where are we"
-          subtitle="Lorem Ipsum"
-        >
+        <Section title="Where are we" subtitle="Lorem Ipsum">
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <Reveal from="left">
@@ -214,10 +254,7 @@ export default function Home() {
         </Section>
 
         {/* LICENSE */}
-        <Section
-          title="Our license"
-          subtitle="Lorem Ipsum"
-        >
+        <Section title="Our license" subtitle="Lorem Ipsum">
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
               <Reveal from="left">
@@ -236,7 +273,5 @@ export default function Home() {
         </Section>
       </Container>
     </Box>
-  )
+  );
 }
-
-
