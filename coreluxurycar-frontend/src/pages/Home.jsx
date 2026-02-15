@@ -11,8 +11,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import WhatsAppButton from "../components/WhatsAppButton";
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import SEO from "../components/SEO.jsx";
 
 // ── Reusable reveal wrapper ────────────────────────────────────────
 const MotionBox = motion(Box);
@@ -56,7 +55,13 @@ function Section({ title, subtitle, children }) {
       <Reveal from="up">
         <Typography
           variant="h4"
-          sx={{ color: "var(--sand-primary)", fontWeight: 500, letterSpacing: 0.5, mb: 1 }}
+          component="h2"
+          sx={{
+            color: "var(--sand-primary)",
+            fontWeight: 500,
+            letterSpacing: 0.5,
+            mb: 1,
+          }}
         >
           {title}
         </Typography>
@@ -82,19 +87,50 @@ function InfoCard({ title, body }) {
         height: "100%",
         backgroundColor: "rgba(255,255,255,0.02)",
         border: "1px solid rgba(255,255,255,0.06)",
+        backdropFilter: "blur(8px)",
+        transition: "all 0.3s ease",
+        "&:hover": {
+          borderColor: "rgba(214,198,161,0.25)",
+          transform: "translateY(-4px)",
+        },
       }}
     >
       <CardContent>
-        <Typography variant="h6" sx={{ color: "var(--sand-primary)", mb: 1, fontWeight: 500 }}>
+        <Typography
+          variant="h6"
+          component="h3"
+          sx={{
+            color: "var(--sand-primary)",
+            mb: 1.5,
+            fontWeight: 600,
+            letterSpacing: "0.04em",
+          }}
+        >
           {title}
         </Typography>
-        <Typography variant="body2" sx={{ color: "var(--text-secondary)", lineHeight: 1.6 }}>
+
+        <Typography
+          variant="body2"
+          component="div"   // ✅ evita nesting error
+          sx={{
+            color: "var(--text-secondary)",
+            lineHeight: 1.7,
+            "& ul": {
+              margin: 0,
+              paddingLeft: "18px",
+            },
+            "& li": {
+              marginBottom: "6px",
+            },
+          }}
+        >
           {body}
         </Typography>
       </CardContent>
     </Card>
   );
 }
+
 
 function HeroSection() {
   return (
@@ -132,7 +168,7 @@ function HeroSection() {
             height: "100%",
             objectFit: "cover",
             filter: "brightness(0.78) contrast(1.12) saturate(0.65)",
-            backgroundColor: "rgba(0, 0, 0, 0.68)", 
+            backgroundColor: "rgba(0, 0, 0, 0.68)",
           }}
         >
           <source
@@ -141,7 +177,6 @@ function HeroSection() {
             media="(max-aspect-ratio: 3/4) or (orientation: portrait)"
           />
           <source src="/Hero4K_4K.mp4" type="video/mp4" />
-
         </Box>
       </Box>
 
@@ -163,29 +198,44 @@ function HeroSection() {
           py: 8,
         }}
       >
-        <Reveal from="left">
+        {/* H1 real para SEO (visual igual) */}
+        <Reveal from="down">
           <Typography
             variant="h2"
+            component="h1"
             sx={{
               color: "var(--sand-primary)",
               fontWeight: 500,
               letterSpacing: 1,
-              fontSize: { xs: "2.4rem", sm: "3.2rem", md: "4.5rem" },
+              fontSize: { xs: "2.2rem", sm: "3.0rem", md: "4.0rem" },
             }}
           >
             CoreLuxuryCar
           </Typography>
         </Reveal>
 
-        <Reveal from="right" delay={0.08}>
+        {/* Marca (no H1) */}
+        <Reveal from="right" delay={0.06}>
           <Typography
-            sx={{ color: "var(--text-secondary)", mt: 2, fontSize: 18 }}
+            sx={{
+              color: "rgba(255,255,255,0.85)",
+              mt: 1.2,
+              fontSize: { xs: 16, sm: 18 },
+              letterSpacing: 0.8,
+            }}
           >
-            This webpage is still under development. We are COREstructing for you.
+            Luxury Chauffeur Service in Ibiza – Private Airport Transfers & VIP Transport
+
           </Typography>
         </Reveal>
 
-        <Reveal from="up" delay={0.16}>
+        <Reveal from="up" delay={0.14}>
+          <Typography sx={{ color: "var(--text-secondary)", mt: 2, fontSize: 18 }}>
+            Private airport transfers, VIP rides and premium transport across Ibiza — fast booking via WhatsApp or via form.
+          </Typography>
+        </Reveal>
+
+        <Reveal from="up" delay={0.20}>
           <Stack
             direction="column"
             spacing={2}
@@ -218,68 +268,172 @@ function HeroSection() {
 
 export default function Home() {
   return (
-    <Box sx={{ backgroundColor: "var(--bg-primary)" , overflowX: "hidden",}}>
+    <Box sx={{ backgroundColor: "var(--bg-primary)", overflowX: "hidden" }}>
+      <SEO
+        title="Luxury Chauffeur Service in Ibiza"
+        description="CoreLuxuryCar provides premium chauffeur services in Ibiza: private airport transfers, VIP transport and luxury rides. Fast booking via WhatsApp."
+      />
+
       <HeroSection />
 
       <Container maxWidth="lg" sx={{ pb: 10 }}>
+        {/* Texto SEO */}
+        <Box sx={{ pt: { xs: 6, md: 8 } }}>
+          <Reveal from="up">
+            <Typography sx={{ color: "var(--text-secondary)", lineHeight: 1.8, fontSize: 16 }}>
+              CoreLuxuryCar provides luxury chauffeur services in Ibiza, specializing in private airport transfers from Ibiza Airport (IBZ), VIP transport and private driver services with premium Mercedes V-Class experiences.
+              <br /><br />
+              Ideal for luxury hotel transfers, yacht marina pickups, events and tailored island tours — with punctuality, discretion and first-class comfort across Ibiza.
+
+            </Typography>
+          </Reveal>
+        </Box>
+
         {/* WHY US */}
-        <Section title="Why us?" subtitle="Lorem Ipsum">
-          <Grid container spacing={3}>
-            {[
-              { title: "Premium fleet", body: "Top-tier vehicles, always clean and ready (placeholder)." },
-              { title: "Professional chauffeurs", body: "Punctual, discreet, and experienced (placeholder)." },
-              { title: "Fast booking", body: "Request in minutes, confirm quickly (placeholder)." },
-            ].map((c, i) => (
-              <Grid item xs={12} md={4} key={c.title}>
-                <Reveal from={i % 2 === 0 ? "left" : "right"} delay={i * 0.08}>
-                  <InfoCard title={c.title} body={c.body} />
-                </Reveal>
-              </Grid>
-            ))}
-          </Grid>
+        <Section
+          title="Why choose CoreLuxuryCar – Private Chauffeur in Ibiza"
+          subtitle="Premium transport in Ibiza designed for comfort, privacy and reliability."
+        >
+          <Stack direction={{ xs: "column", md: "row" }} spacing={6} alignItems="center">
+            <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Reveal from="left">
+                <Stack spacing={3}>
+                  <InfoCard title="Premium service" body="Professional, discreet chauffeur service for VIP transfers." />
+                  <InfoCard title="Punctual & reliable" body="On-time pickups for Ibiza Airport, villas and marinas." />
+                  <InfoCard title="Fast booking" body="Request a ride in minutes via WhatsApp." />
+                </Stack>
+              </Reveal>
+            </Box>
+
+            <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Reveal from="right">
+                <Box
+                  component="img"
+                  src="/interni.png"
+                  alt="Luxury Mercedes V-Class interior Ibiza chauffeur service"
+                  loading="lazy"
+                  sx={{
+                    width: "100%",
+                    height: { xs: 260, md: 420 },
+                    objectFit: "cover",
+                    borderRadius: 4,
+                    display: "block",
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.55)",
+                  }}
+                />
+              </Reveal>
+            </Box>
+          </Stack>
         </Section>
 
         {/* WHERE ARE WE */}
-        <Section title="Where are we" subtitle="Lorem Ipsum">
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+        <Section
+          title="Ibiza Airport Transfers & Island-Wide Private Transport"
+          subtitle="Airport pickups, hotel transfers, villas, marinas and tailored routes."
+        >
+          <Stack direction={{ xs: "column", md: "row" }} spacing={6} alignItems="center">
+            {/* LEFT (image) */}
+            <Box sx={{ flex: 1, minWidth: 0 }}>
               <Reveal from="left">
-                <InfoCard
-                  title="Location"
-                  body="Ibiza, Spain (placeholder). Add address + map later."
+                <Box
+                  component="img"
+                  src="/esvedra.png"
+                  alt="Luxury Mercedes V-Class near Es Vedra"
+                  loading="lazy"
+                  sx={{
+                    width: "100%",
+                    height: { xs: 260, md: 420 },
+                    objectFit: "cover",
+                    borderRadius: 4,
+                    display: "block",
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.55)",
+                  }}
                 />
               </Reveal>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Reveal from="right" delay={0.08}>
-                <InfoCard
-                  title="Availability"
-                  body="24/7 service (placeholder). Replace with your real schedule."
-                />
+            </Box>
+
+            {/* RIGHT (cards) */}
+            <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Reveal from="right">
+                <Stack spacing={3}>
+                  <InfoCard
+                    title="Service area"
+                    body="Ibiza (Eivissa) — including Ibiza Airport, Ibiza Town, San Antonio, Santa Eulalia, marinas and villa areas."
+                  />
+                  <InfoCard
+                    title="Availability"
+                    body="Flexible scheduling for transfers and private rides. Contact us anytime to check availability and rates."
+                  />
+                </Stack>
               </Reveal>
-            </Grid>
-          </Grid>
+            </Box>
+          </Stack>
         </Section>
 
         {/* LICENSE */}
-        <Section title="Our license" subtitle="Lorem Ipsum">
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={4}>
+        <Section
+          title="Licensed Professional Chauffeur Service in Ibiza"
+          subtitle="We operate with a professional, safety-first approach."
+        >
+          <Stack direction={{ xs: "column", md: "row" }} spacing={6} alignItems="center">
+            {/* LEFT (cards) */}
+            <Box sx={{ flex: 1, minWidth: 0 }}>
               <Reveal from="left">
-                <InfoCard title="License ID" body="CLC-IBZ-00123 (placeholder)" />
+                <Stack spacing={3}>
+                  <InfoCard
+                    title="Professional operations"
+                    body="Professional chauffeur service with clear booking, pickup coordination and customer support."
+                  />
+                  <InfoCard
+                    title="Transparent service"
+                    body="Clear communication on pickup details, luggage, timing and route preferences — tailored to your trip."
+                  />
+                  <InfoCard
+                    title="Key Features"
+                    body={
+                      <>
+                      <Typography variant="body2" sx={{ mb: 1 }}>
+                        Our premium chauffeur services include:
+                      </Typography>
+
+                      <Box component="ul" sx={{ pl: 2, m: 0 }}>
+                      <Box component="li">Private Ibiza Airport Transfers (IBZ)</Box>
+                      <Box component="li">Professional Private Driver Ibiza (Hourly / Daily)</Box>
+                      <Box component="li">Yacht & Marina Transfers in Ibiza</Box>
+                      <Box component="li">VIP Events & Night Chauffeur Services</Box>
+                      </Box>
+                      </>
+                    }
+                  />
+                </Stack>
               </Reveal>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Reveal from="right" delay={0.08}>
-                <InfoCard
-                  title="Compliance"
-                  body="We operate under local regulations and provide documentation on request (placeholder)."
+            </Box>
+
+            {/* RIGHT (image) */}
+            <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Reveal from="right">
+                <Box
+                  component="img"
+                  src="/daltvila.png"
+                  alt="Professional chauffeur opening Mercedes V-Class door in Ibiza"
+                  loading="lazy"
+                  sx={{
+                    width: "100%",
+                    height: { xs: 260, md: 420 },
+                    objectFit: "cover",
+                    borderRadius: 4,
+                    display: "block",
+                    boxShadow: "0 24px 60px rgba(0,0,0,0.6)",
+                    filter: "brightness(0.95) contrast(1.05)",
+                  }}
                 />
               </Reveal>
-            </Grid>
-          </Grid>
+            </Box>
+          </Stack>
+
+
         </Section>
       </Container>
     </Box>
-  );
+  )
 }

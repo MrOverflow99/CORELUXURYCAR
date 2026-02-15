@@ -134,7 +134,7 @@ export default function Request() {
   
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', py: 6 }}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', py: 6, mt: 4}}>
       <Container maxWidth="md">
         <Typography variant="h3" sx={{ color: 'var(--sand-primary)', mb: 1, fontWeight: 500 }}>
           Request a Ride
@@ -485,7 +485,8 @@ export default function Request() {
             </Box>
 
             <Typography sx={{ color: 'var(--text-secondary)', mt: 2, fontSize: 12 }}>
-              This form is for booking requests. We will confirm availability and final price after review.
+              This form is for booking requests.
+              We will confirm availability and final price after review.
             </Typography>
           </Box>
         </Paper>
