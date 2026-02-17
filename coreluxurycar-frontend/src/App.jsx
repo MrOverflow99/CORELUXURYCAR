@@ -3,7 +3,6 @@ import { Box } from '@mui/material'
 
 import Home from './pages/Home.jsx'
 import Request from './pages/Request.jsx'
-import Thanks from './pages/Thanks.jsx'
 import Privacy from './pages/Privacy.jsx'
 import Footer from './components/Footer.jsx'
 import Navbar from './components/Navbar.jsx'
@@ -18,14 +17,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/request" element={<Request />} />
-          <Route path="/thanks" element={<Thanks />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/legal" element={<Legal />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Box>
-      
       <Footer/>
     </Box>
   )
