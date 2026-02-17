@@ -8,6 +8,7 @@ import App from "./App.jsx"
 import "./styles/theme.css"
 import "./index.css"
 import { muiTheme } from "./styles/muiTheme.js"
+import ScrollToTop from "./components/ScrollToTop.jsx"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ThemeProvider theme={muiTheme}>
         <CssBaseline />
         <BrowserRouter>
+          <ScrollToTop/>
           <App />
         </BrowserRouter>
       </ThemeProvider>

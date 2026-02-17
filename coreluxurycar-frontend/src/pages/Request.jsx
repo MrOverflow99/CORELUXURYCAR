@@ -134,7 +134,7 @@ export default function Request() {
   
 
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', py: 6, mt: 4}}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', py: 6, mt: 8}}>
       <Container maxWidth="md">
         <Typography variant="h3" sx={{ color: 'var(--sand-primary)', mb: 1, fontWeight: 500 }}>
           Request a Ride

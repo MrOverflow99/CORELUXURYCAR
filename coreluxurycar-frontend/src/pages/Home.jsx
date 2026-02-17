@@ -4,50 +4,14 @@ import {
   Container,
   Typography,
   Button,
-  Grid,
   Card,
   CardContent,
   Stack,
 } from "@mui/material";
-import { motion } from "framer-motion";
 import WhatsAppButton from "../components/WhatsAppButton";
 import SEO from "../components/SEO.jsx";
+import Reveal from "../components/Reveal.jsx";
 
-// ── Reusable reveal wrapper ────────────────────────────────────────
-const MotionBox = motion(Box);
-
-function Reveal({
-  children,
-  from = "left",
-  delay = 0,
-  duration = 0.6,
-  distance = 40,
-  once = true,
-}) {
-  const offset =
-    from === "left"
-      ? { x: -distance, y: 0 }
-      : from === "right"
-      ? { x: distance, y: 0 }
-      : from === "up"
-      ? { x: 0, y: -distance }
-      : { x: 0, y: distance };
-
-  return (
-    <MotionBox
-      initial={{ opacity: 0, ...offset }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once, amount: 0.2 }}
-      transition={{
-        duration,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
-      {children}
-    </MotionBox>
-  );
-}
 
 function Section({ title, subtitle, children }) {
   return (
@@ -111,7 +75,7 @@ function InfoCard({ title, body }) {
 
         <Typography
           variant="body2"
-          component="div"   // ✅ evita nesting error
+          component="div"  
           sx={{
             color: "var(--text-secondary)",
             lineHeight: 1.7,

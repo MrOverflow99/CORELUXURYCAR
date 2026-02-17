@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import Box from "@mui/material/Box";
 
@@ -11,6 +10,7 @@ export default function Reveal({
   duration = 0.6,
   distance = 40,
   once = true,
+  amount = "some",
 }) {
   const offset =
     from === "left"
@@ -25,7 +25,7 @@ export default function Reveal({
     <MotionBox
       initial={{ opacity: 0, ...offset }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once, amount: 0.2 }}
+      viewport={{ once, amount: amount }}
       transition={{
         duration,
         delay,
