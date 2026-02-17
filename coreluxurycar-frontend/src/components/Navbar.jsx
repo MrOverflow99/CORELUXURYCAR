@@ -13,26 +13,49 @@ import {
   ListItemText,
   Divider,
   Typography,
+  Menu,
+  MenuItem,
+  Collapse,
 } from "@mui/material"
+import Grow from "@mui/material/Grow"
 import MenuIcon from "@mui/icons-material/Menu"
 import CloseIcon from "@mui/icons-material/Close"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 import WhatsAppButton from "../components/WhatsAppButton"
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+
+  // Desktop dropdown "Legal"
+  const [legalAnchor, setLegalAnchor] = useState(null)
+  const legalOpen = Boolean(legalAnchor)
+
+  // Mobile collapsible "Legal"
+  const [legalMobileOpen, setLegalMobileOpen] = useState(false)
+
   const location = useLocation()
 
   const navItems = useMemo(
     () => [
       { label: "Home", to: "/" },
-      { label: "Contact", to: "/Request" },
-      { label: "Privacy", to: "/privacy" },
+      { label: "Contact Us", to: "/request" }, // ✅ fix: era /Request
+    ],
+    []
+  )
+
+  const legalItems = useMemo(
+    () => [
+      { label: "Privacy Policy", to: "/privacy" },
+      { label: "Cookies Policy", to: "/cookies" },
+      { label: "Legal Notice", to: "/legal" },
     ],
     []
   )
 
   const isActive = (to) => location.pathname === to
+  const isLegalActive = legalItems.some((it) => isActive(it.to))
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24)
@@ -42,9 +65,15 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
-    // chiudi menu mobile quando cambi pagina
+    // Chiudi menu mobile quando cambi pagina
     setOpen(false)
+
+    // Chiudi dropdown desktop quando cambi pagina
+    setLegalAnchor(null)
   }, [location.pathname])
+
+  const openLegal = (event) => setLegalAnchor(event.currentTarget)
+  const closeLegal = () => setLegalAnchor(null)
 
   return (
     <AppBar
@@ -52,10 +81,12 @@ export default function Navbar() {
       elevation={0}
       sx={{
         backgroundColor: scrolled ? "rgba(17, 17, 17, 0.82)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none", // ✅ fix blur(px)
+        backdropFilter: scrolled ? "blur(12px)" : "none",
         transition: "all 0.25s ease",
         boxShadow: scrolled ? "0 10px 30px rgba(0,0,0,0.28)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(214,198,161,0.16)" : "1px solid rgba(214,198,161,0)",
+        borderBottom: scrolled
+          ? "1px solid rgba(214,198,161,0.16)"
+          : "1px solid rgba(214,198,161,0)",
       }}
     >
       <Container maxWidth="lg">
@@ -138,6 +169,81 @@ export default function Navbar() {
                 {it.label}
               </Button>
             ))}
+
+            {/* LEGAL (DESKTOP) — come un Select: click per aprire */}
+            <Button
+              onClick={openLegal}
+              disableRipple
+              endIcon={<ExpandMoreIcon sx={{ fontSize: 18 }} />}
+              sx={{
+                px: 1.6,
+                py: 1,
+                borderRadius: 999,
+                textTransform: "none",
+                fontWeight: 650,
+                fontSize: 14,
+                color: isLegalActive ? "var(--sand-primary)" : "var(--text-secondary)",
+                backgroundColor: isLegalActive ? "rgba(214,198,161,0.10)" : "transparent",
+                transition: "all .2s ease",
+                "&:hover": {
+                  backgroundColor: "rgba(214,198,161,0.12)",
+                  color: "var(--sand-primary)",
+                },
+              }}
+            >
+              Our Policies
+            </Button>
+
+            {/* Dropdown stile IDENTICO ai Select del form */}
+            <Menu
+              anchorEl={legalAnchor}
+              open={legalOpen}
+              onClose={closeLegal}
+              TransitionComponent={Grow}
+              transitionDuration={420} // ✅ più lento, elegante
+              PaperProps={{
+                sx: {
+                  mt: 1, // come i Select
+                  backgroundColor: "var(--bg-secondary)", // ✅ uguale a Request
+                  border: "1px solid var(--sand-primary)", // ✅ uguale a Request
+                  borderRadius: 2, // ✅ uguale a Request
+                  overflow: "hidden",
+                  minWidth: 240,
+                  boxShadow: "0 18px 50px rgba(0,0,0,0.35)",
+                },
+              }}
+              MenuListProps={{
+                sx: {
+                  py: 0.6,
+                },
+              }}
+            >
+              {legalItems.map((it) => (
+                <MenuItem
+                  key={it.to}
+                  component={RouterLink}
+                  to={it.to}
+                  onClick={closeLegal}
+                  sx={{
+                    mx: 0.8,
+                    my: 0.4,
+                    borderRadius: 1.6,
+                    px: 1.4,
+                    py: 1.15,
+                    fontWeight: 700,
+                    color: isActive(it.to) ? "var(--sand-primary)" : "var(--text-secondary)",
+                    backgroundColor: isActive(it.to) ? "rgba(214,198,161,0.10)" : "transparent",
+                    transition: "all .22s ease",
+                    "&:hover": {
+                      backgroundColor: "rgba(214,198,161,0.12)",
+                      color: "var(--sand-primary)",
+                    },
+                  }}
+                >
+                  {it.label}
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
 
           {/* RIGHT: CTA + MOBILE MENU */}
@@ -208,10 +314,51 @@ export default function Navbar() {
               <ListItemText primary={it.label} primaryTypographyProps={{ fontWeight: 800 }} />
             </ListItemButton>
           ))}
+
+          {/* LEGAL COLLAPSIBLE (MOBILE) */}
+          <ListItemButton
+            onClick={() => setLegalMobileOpen((v) => !v)}
+            sx={{
+              mx: 1.5,
+              my: 0.6,
+              borderRadius: 2,
+              color: isLegalActive ? "var(--sand-primary)" : "rgba(255,255,255,0.78)",
+              backgroundColor: isLegalActive ? "rgba(214,198,161,0.10)" : "transparent",
+              "&:hover": { backgroundColor: "rgba(214,198,161,0.12)" },
+            }}
+          >
+            <ListItemText primary="Legal" primaryTypographyProps={{ fontWeight: 900 }} />
+            {legalMobileOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </ListItemButton>
+
+          <Collapse in={legalMobileOpen} timeout={280} unmountOnExit>
+            <List sx={{ pt: 0.2, pb: 0.8 }}>
+              {legalItems.map((it) => (
+                <ListItemButton
+                  key={it.to}
+                  component={RouterLink}
+                  to={it.to}
+                  sx={{
+                    mx: 2.5,
+                    my: 0.35,
+                    borderRadius: 2,
+                    pl: 2.2,
+                    color: isActive(it.to) ? "var(--sand-primary)" : "rgba(255,255,255,0.72)",
+                    backgroundColor: isActive(it.to) ? "rgba(214,198,161,0.10)" : "transparent",
+                    "&:hover": { backgroundColor: "rgba(214,198,161,0.10)" },
+                  }}
+                >
+                  <ListItemText
+                    primary={it.label}
+                    primaryTypographyProps={{ fontWeight: 800, fontSize: 14 }}
+                  />
+                </ListItemButton>
+              ))}
+            </List>
+          </Collapse>
         </List>
 
         <Box sx={{ p: 2, mt: "auto" }}>
-          {/* WhatsApp CTA (mobile) */}
           <Box sx={{ width: "100%" }}>
             <WhatsAppButton />
           </Box>

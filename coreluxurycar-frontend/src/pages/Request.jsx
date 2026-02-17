@@ -3,6 +3,7 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom'
 import { sendEmail } from '../mail'
 import Grid from '@mui/material/Grid'
 import { matchIsValidTel, MuiTelInput } from 'mui-tel-input'
+import Reveal from '../components/Reveal'
 
 import {
   Box,
@@ -144,6 +145,7 @@ export default function Request() {
           Luxury chauffeur service in Ibiza. Fill in the trip details and we’ll confirm availability.
         </Typography>
 
+        <Reveal from="down" delay={0.3}>
         <Paper
           elevation={0}
           sx={{
@@ -153,6 +155,7 @@ export default function Request() {
             border: '1px solid rgba(214,198,161,0.15)',
           }}
         >
+          
           <Box component="form" autoComplete='on' onSubmit={handleSubmit} >
             {/* CONTACT */}
             <Typography sx={{ color: 'var(--text-primary)', fontWeight: 600, mb: 1 }}>
@@ -489,7 +492,9 @@ export default function Request() {
               We will confirm availability and final price after review.
             </Typography>
           </Box>
+          
         </Paper>
+        </Reveal>
       </Container>
     </Box>
   )
