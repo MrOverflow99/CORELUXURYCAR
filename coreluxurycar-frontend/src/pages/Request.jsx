@@ -1,4 +1,4 @@
-import { useMemo, useState, forwardRef } from 'react'
+import { useMemo, useState, forwardRef, useRef } from 'react'
 import { useNavigate, Link as RouterLink } from 'react-router-dom'
 import { sendEmail } from '../mail'
 import Grid from '@mui/material/Grid'
@@ -62,10 +62,12 @@ export default function Request() {
   const [form, setForm] = useState(initialForm)
   const [touched, setTouched] = useState({})
   const [submitting, setSubmitting] = useState(false)
-
   const [successOpen, setSuccessOpen] = useState(false)
   const [errorOpen, setErrorOpen] = useState(false)
   const [errorMsg, setErrorMsg] = useState('Failed to send email. Please try again.')
+  const [submitted, setSubmitted] = useState(false)
+  const privacyRef = useRef(null)
+
 
   const errors = useMemo(() => {
     const e = {}
@@ -84,7 +86,6 @@ export default function Request() {
     if (!form.time) e.time = 'Required'
     if (!form.tripType) e.tripType = 'Required'
 
-    // passengers/luggage son Selects -> el valor vacío es ''
     if (form.passengers === '' || form.passengers === null || form.passengers === undefined) e.passengers = 'Required'
     if (form.luggage === '' || form.luggage === null || form.luggage === undefined) e.luggage = 'Required'
 
@@ -97,7 +98,7 @@ export default function Request() {
     return e
   }, [form])
 
-  const hasError = (field) => Boolean(touched[field] && errors[field])
+  const hasError = (field) => Boolean(submitted || touched[field] && errors[field])
 
   const onChange = (key) => (event) => {
     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
@@ -114,9 +115,14 @@ export default function Request() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setSubmitted(true)
     markAllTouched()
 
-    if (Object.keys(errors).length > 0) return
+    if (Object.keys(errors).length > 0) {
+       if (errors.acceptPrivacy) {
+          scrollToPrivacy()
+        }return
+    }
 
     setSubmitting(true)
 
@@ -151,6 +157,16 @@ export default function Request() {
       setSubmitting(false)
     }
   }
+
+  const scrollToPrivacy = () => {
+  if (privacyRef.current) {
+    privacyRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center', // queda elegante en formularios largos
+    })
+  }
+}
+
 
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: 'var(--bg-primary)', py: 6, mt: 8 }}>
@@ -420,6 +436,37 @@ export default function Request() {
               <Divider sx={{ my: 3, borderColor: 'rgba(255,255,255,0.08)' }} />
 
               {/* PRIVACY */}
+
+              <Box
+                sx={{
+                  mt:1,
+                  p:2,
+                  borderRadius:2,
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  backgroundColor: 'rgba(255,255,255,0.04)',
+                }}>      
+
+                <Typography sx={{ color: 'rgba(255,255,255,0.88)', fontWeight: 600, mb: 0.6 }}>
+                  Data protection summary
+                </Typography>
+
+               <Typography sx={{ color: 'var(--text-secondary)', fontSize: 13, lineHeight: 1.75 }}>
+                  <b>Controller:</b> CoreLuxuryCar. <br />
+                  <b>Purpose:</b> Handle your booking request and contact you to confirm availability and provide a quote. <br />
+                  <b>Legal basis:</b> Your consent (Art. 6(1)(a) GDPR). <br />
+                  <b>Recipients:</b> Data is processed by EmailJS (email delivery provider) to send your request. No data is sold or shared for marketing purposes. <br />
+                  <b>Rights:</b> Access, rectification, erasure, objection, restriction and portability.
+                </Typography>
+
+                <Typography sx={{ color: 'var(--text-secondary)', fontSize: 13, lineHeight: 1.75, mt: 1 }}>
+                  More details in our{' '}
+                  <Link component={RouterLink} to="/privacy" underline="hover" sx={{ fontWeight: 800, color: 'var(--sand-primary)' }}>
+                    Privacy Policy
+                  </Link>
+                  .
+                </Typography>
+              </Box>
+              <Box ref={privacyRef}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -430,28 +477,31 @@ export default function Request() {
                 }
                 label={
                   <span>
-                    I accept the{' '}
-                    <Link component={RouterLink} to="/privacy" underline="hover">
-                      privacy policy
-                    </Link>
-                    .
+                    I have read and accept the{' '}
+                    <Link component={RouterLink} to="/privacy" underline="hover" sx={{ fontWeight: 700 }}>
+                      Privacy Policy
+                    </Link>{' '}
+                    to process my request.
                   </span>
                 }
               />
               {hasError('acceptPrivacy') && (
                 <Typography sx={{ color: '#ff8a80', fontSize: 12, mt: -0.5 }}>{errors.acceptPrivacy}</Typography>
               )}
+              </Box>
 
               {/* ACTIONS */}
               <Box sx={{ display: 'flex', gap: 2, mt: 3, flexWrap: 'wrap' }}>
                 <Button
                   type="submit"
                   variant="contained"
-                  disabled={submitting}
+                  disabled={submitting || !form.acceptPrivacy}
                   sx={{
                     backgroundColor: 'var(--sand-primary)',
                     color: '#111',
                     '&:hover': { backgroundColor: 'var(--sand-secondary)' },
+                    fontWeight: 700,
+                    opacity: submitting || !form.acceptPrivacy ? 0.7 : 1,
                   }}
                 >
                   {submitting ? 'Sending...' : 'Send request'}

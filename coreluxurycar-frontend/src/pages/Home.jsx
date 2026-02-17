@@ -217,6 +217,7 @@ function HeroSection() {
                 px: 4,
                 py: 1.2,
                 "&:hover": { backgroundColor: "var(--sand-secondary)" },
+                fontWeight: 700
               }}
             >
               REQUEST A RIDE

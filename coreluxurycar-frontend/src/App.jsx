@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { Box } from '@mui/material'
+import CookieBanner from "./consent/CookieBanner";
+import CookieSettingsModal from "./consent/CookieSettingsModal";
 
 import Home from './pages/Home.jsx'
 import Request from './pages/Request.jsx'
@@ -22,6 +24,8 @@ export default function App() {
           <Route path="/legal" element={<Legal />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <CookieSettingsModal />
+      <CookieBanner />
       </Box>
       <Footer/>
     </Box>

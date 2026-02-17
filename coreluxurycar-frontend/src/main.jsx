@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client"
 import { BrowserRouter } from "react-router-dom"
 import { ThemeProvider, CssBaseline } from "@mui/material"
 import { HelmetProvider } from "react-helmet-async"
+import { ConsentProvider } from "./consent/ConsentContext";
 
 import App from "./App.jsx"
 import "./styles/theme.css"
@@ -16,8 +17,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ThemeProvider theme={muiTheme}>
         <CssBaseline />
         <BrowserRouter>
+        <ConsentProvider>
           <ScrollToTop/>
           <App />
+        </ConsentProvider>
         </BrowserRouter>
       </ThemeProvider>
     </HelmetProvider>

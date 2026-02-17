@@ -3,11 +3,16 @@ import { Box, Container, Typography, Link, Divider, Stack, Button, Chip } from "
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined"
 import MailOutlineIcon from "@mui/icons-material/MailOutline"
 import WhatsAppIcon from "@mui/icons-material/WhatsApp"
+import { useConsent } from "../consent/ConsentContext"
+
 
 export default function Footer() {
   const year = new Date().getFullYear()
   const WHATSAPP_NUMBER_INTL = import.meta.env.VITE_PHONE_NUMBER
   const EMAIL = "info@coreluxurycar.com"
+
+  const { openSettings } = useConsent()
+
 
   return (
     <Box
@@ -124,9 +129,9 @@ export default function Footer() {
                     borderColor: "rgba(214,198,161,0.55)",
                     color: "var(--sand-primary)",
                     borderRadius: 2,
-                    px: 2.2,
+                    px: 2,
                     py: 1.05,
-                    fontWeight: 900,
+                    fontWeight: 700,
                     textTransform: "none",
                     width: "fit-content",
                     "&:hover": {
@@ -162,17 +167,52 @@ export default function Footer() {
             © {year} CoreLuxuryCar. All rights reserved.
           </Typography>
 
-          {/* ✅ Solo qui i link legali (niente duplicati sopra) */}
+          {/* Mi raccomando solo cose di legge!!!! */}
           <Stack direction="row" spacing={2} sx={{ flexWrap: "wrap" }}>
             <BottomLink to="/privacy" label="Privacy" />
             <BottomLink to="/cookies" label="Cookies" />
             <BottomLink to="/legal" label="Legal" />
+            <CookieSettingsLink onClick={openSettings} />
           </Stack>
         </Box>
       </Container>
     </Box>
   )
 }
+
+function CookieSettingsLink({ onClick }) {
+  return (
+    <Link
+      component="button"
+      type="button"
+      onClick={onClick}
+      underline="hover"
+      sx={{
+        // mismo estilo que BottomLink
+        color: "rgba(214,198,161,0.78)",
+        fontSize: 12,
+        fontWeight: 900,
+
+        // comportamiento de botón sin “estética de botón”
+        background: "transparent",
+        border: "none",
+        padding: 0,
+        cursor: "pointer",
+
+        // coherencia con tu UI + accesibilidad
+        "&:hover": { color: "var(--sand-primary)" },
+        "&:focus-visible": {
+          outline: "2px solid rgba(214,198,161,0.55)",
+          outlineOffset: 2,
+          borderRadius: 6,
+        },
+      }}
+    >
+      Cookie settings
+    </Link>
+  )
+}
+
 
 /* ---------- components ---------- */
 

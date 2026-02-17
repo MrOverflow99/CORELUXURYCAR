@@ -15,6 +15,7 @@ function WhatsAppButton (){
         color: "#111",
         px: 4,
         py: 1.2,
+        fontWeight: 700
       }}
       variant="contained"
       color="success"
