@@ -5,14 +5,12 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline"
 import WhatsAppIcon from "@mui/icons-material/WhatsApp"
 import { useConsent } from "../consent/ConsentContext"
 
-
 export default function Footer() {
   const year = new Date().getFullYear()
   const WHATSAPP_NUMBER_INTL = import.meta.env.VITE_PHONE_NUMBER
   const EMAIL = "info@coreluxurycar.com"
 
   const { openSettings } = useConsent()
-
 
   return (
     <Box
@@ -40,27 +38,58 @@ export default function Footer() {
         <Box
           sx={{
             display: "grid",
-            // ✅ divider reale come colonna (niente absolute)
             gridTemplateColumns: { xs: "1fr", md: "1fr 1px 0.85fr" },
             gap: { xs: 4, md: 0 },
             alignItems: "start",
           }}
         >
           {/* LEFT: Brand + Services */}
-          <Stack spacing={2.2} sx={{ pr: { md: 5} }}>
+          <Stack spacing={2.2} sx={{ pr: { md: 5 } }}>
             <Stack spacing={1.4}>
-              <Typography
+              {/* BRAND (logo + Ibiza) */}
+              <Box
+                component={RouterLink}
+                to="/"
                 sx={{
-                  color: "var(--sand-primary)",
-                  fontWeight: 900,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 1.1,
+                  textDecoration: "none",
+                  width: "fit-content",
+                  "&:hover img": { opacity: 1 },
+                  "&:hover span": { opacity: 1 },
                 }}
               >
-                CoreLuxuryCar Ibiza
-              </Typography>
+                <Box
+                  component="img"
+                  src="/LOGO_cropped.svg"
+                  alt="CoreLuxuryCar"
+                  sx={{
+                    height: 50, // 👈 cambia 28–34 si quieres
+                    width: "auto",
+                    display: "block",
+                    filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.25))",
+                    opacity: 0.92,
+                  }}
+                />
 
-              <Typography sx={{ color: "var(--text-secondary)", lineHeight: 1.85, maxWidth: 560 }}>
+                <Typography
+                  component="span"
+                  sx={{
+                    color: "var(--sand-primary)",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    fontSize: 12,
+                    lineHeight: 1,
+                    opacity: 0.88,
+                    userSelect: "none",
+                  }}
+                >
+                  Ibiza
+                </Typography>
+              </Box>
+
+              <Typography sx={{ color: "var(--text-secondary)", lineHeight: 1.85, maxWidth: 560}}>
                 Premium chauffeur service in Ibiza. Discreet, punctual and tailored rides with professional drivers.
               </Typography>
 
@@ -77,10 +106,6 @@ export default function Footer() {
                 </Link>
               </Stack>
             </Stack>
-
-
-              
-            
           </Stack>
 
           {/* VERTICAL DIVIDER (desktop only) */}
@@ -93,7 +118,7 @@ export default function Footer() {
             }}
           />
 
-          {/* RIGHT: Contact (pulito e centrato nel suo spazio) */}
+          {/* RIGHT: Contact */}
           <Box sx={{ pl: { md: 5 }, width: "100%" }}>
             <Stack spacing={2}>
               <Typography
@@ -105,7 +130,7 @@ export default function Footer() {
                   fontSize: 12,
                 }}
               >
-                Contact
+                Contact Us
               </Typography>
 
               <Stack spacing={1.2} sx={{ maxWidth: 420 }}>
@@ -167,7 +192,7 @@ export default function Footer() {
             © {year} CoreLuxuryCar. All rights reserved.
           </Typography>
 
-          {/* Mi raccomando solo cose di legge!!!! */}
+          {/* Legal only */}
           <Stack direction="row" spacing={2} sx={{ flexWrap: "wrap" }}>
             <BottomLink to="/privacy" label="Privacy" />
             <BottomLink to="/cookies" label="Cookies" />
@@ -188,18 +213,13 @@ function CookieSettingsLink({ onClick }) {
       onClick={onClick}
       underline="hover"
       sx={{
-        // mismo estilo que BottomLink
         color: "rgba(214,198,161,0.78)",
         fontSize: 12,
         fontWeight: 900,
-
-        // comportamiento de botón sin “estética de botón”
         background: "transparent",
         border: "none",
         padding: 0,
         cursor: "pointer",
-
-        // coherencia con tu UI + accesibilidad
         "&:hover": { color: "var(--sand-primary)" },
         "&:focus-visible": {
           outline: "2px solid rgba(214,198,161,0.55)",
@@ -212,7 +232,6 @@ function CookieSettingsLink({ onClick }) {
     </Link>
   )
 }
-
 
 /* ---------- components ---------- */
 

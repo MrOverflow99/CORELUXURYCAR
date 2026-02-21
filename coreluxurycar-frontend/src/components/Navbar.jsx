@@ -111,16 +111,18 @@ export default function Navbar() {
               gap: 1.2,
             }}
           >
-            <Box
-              component="img"
-              src="/testlogonavbar.png"
-              alt="CoreLuxuryCar"
-              sx={{
-                height: scrolled ? 38 : 48,
-                transition: "height 0.25s ease",
-                filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.25))",
-              }}
-            />
+           <Box
+  component="img"
+  src="/LOGO_cropped.svg"
+  alt="CoreLuxuryCar"
+  sx={{
+    height: { xs: 32, sm: scrolled ? 40 : 48 }, 
+    width: "auto",
+    display: "block",
+    transition: "height 0.25s ease",
+    filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.25))",
+  }}
+/>
             <Typography
               sx={{
                 display: { xs: "none", sm: "block" },
@@ -132,7 +134,7 @@ export default function Navbar() {
                 userSelect: "none",
               }}
             >
-              CoreLuxuryCar Ibiza
+              Ibiza
             </Typography>
           </Box>
 
