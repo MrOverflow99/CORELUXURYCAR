@@ -16,7 +16,7 @@ import { motion } from "framer-motion";
 import { Link as RouterLink } from "react-router-dom";
 import { useConsent } from "./ConsentContext";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 function Row({
   title,

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link as RouterLink } from "react-router-dom";
 import { useConsent } from "./ConsentContext";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 export default function CookieBanner() {
   const { hasDecision, setAll, openSettings } = useConsent();

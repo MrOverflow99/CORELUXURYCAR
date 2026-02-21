@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Box from "@mui/material/Box";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 export default function Reveal({
   children,
