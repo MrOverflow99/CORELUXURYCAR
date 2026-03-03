@@ -162,7 +162,7 @@ export default function Footer() {
                     },
                   }}
                 >
-                  Request a Ride
+                  REQUEST A RIDE
                 </Button>
 
                 <Typography sx={{ color: "rgba(255,255,255,0.50)", fontSize: 12, lineHeight: 1.7 }}>
