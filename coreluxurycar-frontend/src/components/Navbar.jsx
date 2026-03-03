@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link as RouterLink, useLocation } from "react-router-dom"
 import {
   AppBar,
@@ -24,38 +24,29 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 import WhatsAppButton from "../components/WhatsAppButton"
 
+// Static arrays outside the component — no reason to recreate or memoize these
+const NAV_ITEMS = [
+  { label: "Home", to: "/" },
+  { label: "Contact Us", to: "/request" },
+]
+
+const LEGAL_ITEMS = [
+  { label: "Privacy Policy", to: "/privacy" },
+  { label: "Cookies Policy", to: "/cookies" },
+  { label: "Legal Notice", to: "/legal" },
+]
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-
-  // Desktop dropdown "Legal"
   const [legalAnchor, setLegalAnchor] = useState(null)
-  const legalOpen = Boolean(legalAnchor)
-
-  // Mobile collapsible "Legal"
   const [legalMobileOpen, setLegalMobileOpen] = useState(false)
 
   const location = useLocation()
-
-  const navItems = useMemo(
-    () => [
-      { label: "Home", to: "/" },
-      { label: "Contact Us", to: "/request" }, // ✅ fix: era /Request
-    ],
-    []
-  )
-
-  const legalItems = useMemo(
-    () => [
-      { label: "Privacy Policy", to: "/privacy" },
-      { label: "Cookies Policy", to: "/cookies" },
-      { label: "Legal Notice", to: "/legal" },
-    ],
-    []
-  )
+  const legalOpen = Boolean(legalAnchor)
 
   const isActive = (to) => location.pathname === to
-  const isLegalActive = legalItems.some((it) => isActive(it.to))
+  const isLegalActive = LEGAL_ITEMS.some((it) => isActive(it.to))
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24)
@@ -65,10 +56,7 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
-    // Chiudi menu mobile quando cambi pagina
     setOpen(false)
-
-    // Chiudi dropdown desktop quando cambi pagina
     setLegalAnchor(null)
   }, [location.pathname])
 
@@ -100,7 +88,7 @@ export default function Navbar() {
           }}
           disableGutters
         >
-          {/* LEFT: LOGO */}
+          {/* LOGO */}
           <Box
             component={RouterLink}
             to="/"
@@ -111,18 +99,18 @@ export default function Navbar() {
               gap: 1.2,
             }}
           >
-           <Box
-  component="img"
-  src="/LOGO_cropped.svg"
-  alt="CoreLuxuryCar"
-  sx={{
-    height: { xs: 32, sm: scrolled ? 40 : 48 }, 
-    width: "auto",
-    display: "block",
-    transition: "height 0.25s ease",
-    filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.25))",
-  }}
-/>
+            <Box
+              component="img"
+              src="/LOGO_cropped.svg"
+              alt="CoreLuxuryCar"
+              sx={{
+                height: { xs: 32, sm: scrolled ? 40 : 48 },
+                width: "auto",
+                display: "block",
+                transition: "height 0.25s ease",
+                filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.25))",
+              }}
+            />
             <Typography
               sx={{
                 display: { xs: "none", sm: "block" },
@@ -138,15 +126,9 @@ export default function Navbar() {
             </Typography>
           </Box>
 
-          {/* CENTER: LINKS (DESKTOP) */}
-          <Box
-            sx={{
-              display: { xs: "none", md: "flex" },
-              alignItems: "center",
-              gap: 0.5,
-            }}
-          >
-            {navItems.map((it) => (
+          {/* DESKTOP NAV */}
+          <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 0.5 }}>
+            {NAV_ITEMS.map((it) => (
               <Button
                 key={it.to}
                 component={RouterLink}
@@ -172,7 +154,7 @@ export default function Navbar() {
               </Button>
             ))}
 
-            {/* LEGAL (DESKTOP) — come un Select: click per aprire */}
+            {/* LEGAL DROPDOWN */}
             <Button
               onClick={openLegal}
               disableRipple
@@ -196,31 +178,26 @@ export default function Navbar() {
               Our Policies
             </Button>
 
-            {/* Dropdown stile IDENTICO ai Select del form */}
             <Menu
               anchorEl={legalAnchor}
               open={legalOpen}
               onClose={closeLegal}
               TransitionComponent={Grow}
-              transitionDuration={420} // ✅ più lento, elegante
+              transitionDuration={420}
               PaperProps={{
                 sx: {
-                  mt: 1, // come i Select
-                  backgroundColor: "var(--bg-secondary)", // ✅ uguale a Request
-                  border: "1px solid var(--sand-primary)", // ✅ uguale a Request
-                  borderRadius: 2, // ✅ uguale a Request
+                  mt: 1,
+                  backgroundColor: "var(--bg-secondary)",
+                  border: "1px solid var(--sand-primary)",
+                  borderRadius: 2,
                   overflow: "hidden",
                   minWidth: 240,
                   boxShadow: "0 18px 50px rgba(0,0,0,0.35)",
                 },
               }}
-              MenuListProps={{
-                sx: {
-                  py: 0.6,
-                },
-              }}
+              MenuListProps={{ sx: { py: 0.6 } }}
             >
-              {legalItems.map((it) => (
+              {LEGAL_ITEMS.map((it) => (
                 <MenuItem
                   key={it.to}
                   component={RouterLink}
@@ -248,14 +225,12 @@ export default function Navbar() {
             </Menu>
           </Box>
 
-          {/* RIGHT: CTA + MOBILE MENU */}
+          {/* RIGHT: CTA + MOBILE ICON */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            {/* WhatsApp CTA (desktop) */}
             <Box sx={{ display: { xs: "none", sm: "flex" } }}>
               <WhatsAppButton />
             </Box>
 
-            {/* Mobile menu icon */}
             <IconButton
               onClick={() => setOpen(true)}
               sx={{
@@ -299,7 +274,7 @@ export default function Navbar() {
         <Divider sx={{ borderColor: "rgba(214,198,161,0.12)" }} />
 
         <List sx={{ py: 1 }}>
-          {navItems.map((it) => (
+          {NAV_ITEMS.map((it) => (
             <ListItemButton
               key={it.to}
               component={RouterLink}
@@ -317,7 +292,7 @@ export default function Navbar() {
             </ListItemButton>
           ))}
 
-          {/* LEGAL COLLAPSIBLE (MOBILE) */}
+          {/* LEGAL COLLAPSIBLE */}
           <ListItemButton
             onClick={() => setLegalMobileOpen((v) => !v)}
             sx={{
@@ -335,7 +310,7 @@ export default function Navbar() {
 
           <Collapse in={legalMobileOpen} timeout={280} unmountOnExit>
             <List sx={{ pt: 0.2, pb: 0.8 }}>
-              {legalItems.map((it) => (
+              {LEGAL_ITEMS.map((it) => (
                 <ListItemButton
                   key={it.to}
                   component={RouterLink}
@@ -364,7 +339,6 @@ export default function Navbar() {
           <Box sx={{ width: "100%" }}>
             <WhatsAppButton />
           </Box>
-
           <Typography sx={{ mt: 1.5, fontSize: 12, color: "rgba(255,255,255,0.55)" }}>
             Premium transfers & private chauffeur service in Ibiza.
           </Typography>

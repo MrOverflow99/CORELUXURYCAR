@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Button, Container, Stack, Typography, Card, CardContent } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link as RouterLink } from "react-router-dom";
@@ -95,9 +94,9 @@ export default function CookieBanner() {
                       variant="contained"
                       onClick={() => setAll("accept_all")}
                       sx={{
-                        backgroundColor: 'var(--sand-primary)', 
+                        backgroundColor: "var(--sand-primary)",
                         color: "#111",
-                        "&:hover": { backgroundColor: 'var(--sand-secondary)' },
+                        "&:hover": { backgroundColor: "var(--sand-secondary)" },
                         borderRadius: 999,
                         px: 2.4,
                         fontWeight: 700,

@@ -1,5 +1,5 @@
 import { Link as RouterLink } from "react-router-dom"
-import { Box, Container, Typography, Link, Divider, Stack, Button, Chip } from "@mui/material"
+import { Box, Container, Typography, Link, Divider, Stack, Button } from "@mui/material"
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined"
 import MailOutlineIcon from "@mui/icons-material/MailOutline"
 import WhatsAppIcon from "@mui/icons-material/WhatsApp"
@@ -43,10 +43,9 @@ export default function Footer() {
             alignItems: "start",
           }}
         >
-          {/* LEFT: Brand + Services */}
+          {/* LEFT: Brand */}
           <Stack spacing={2.2} sx={{ pr: { md: 5 } }}>
             <Stack spacing={1.4}>
-              {/* BRAND (logo + Ibiza) */}
               <Box
                 component={RouterLink}
                 to="/"
@@ -65,14 +64,13 @@ export default function Footer() {
                   src="/LOGO_cropped.svg"
                   alt="CoreLuxuryCar"
                   sx={{
-                    height: 50, // 👈 cambia 28–34 si quieres
+                    height: 50,
                     width: "auto",
                     display: "block",
                     filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.25))",
                     opacity: 0.92,
                   }}
                 />
-
                 <Typography
                   component="span"
                   sx={{
@@ -89,7 +87,7 @@ export default function Footer() {
                 </Typography>
               </Box>
 
-              <Typography sx={{ color: "var(--text-secondary)", lineHeight: 1.85, maxWidth: 560}}>
+              <Typography sx={{ color: "var(--text-secondary)", lineHeight: 1.85, maxWidth: 560 }}>
                 Premium chauffeur service in Ibiza. Discreet, punctual and tailored rides with professional drivers.
               </Typography>
 
@@ -113,7 +111,6 @@ export default function Footer() {
             sx={{
               display: { xs: "none", md: "block" },
               backgroundColor: "rgba(255,255,255,0.06)",
-              // un minimo di respiro sopra/sotto, super elegante
               my: 1,
             }}
           />
@@ -192,7 +189,6 @@ export default function Footer() {
             © {year} CoreLuxuryCar. All rights reserved.
           </Typography>
 
-          {/* Legal only */}
           <Stack direction="row" spacing={2} sx={{ flexWrap: "wrap" }}>
             <BottomLink to="/privacy" label="Privacy" />
             <BottomLink to="/cookies" label="Cookies" />
@@ -204,6 +200,8 @@ export default function Footer() {
     </Box>
   )
 }
+
+/* ── Sub-components ── */
 
 function CookieSettingsLink({ onClick }) {
   return (
@@ -230,31 +228,6 @@ function CookieSettingsLink({ onClick }) {
     >
       Cookie settings
     </Link>
-  )
-}
-
-/* ---------- components ---------- */
-
-function ServiceChip({ label }) {
-  return (
-    <Chip
-      label={label}
-      variant="outlined"
-      sx={{
-        borderColor: "rgba(214,198,161,0.35)",
-        color: "rgba(255,255,255,0.75)",
-        backgroundColor: "rgba(255,255,255,0.02)",
-        borderRadius: 999,
-        fontWeight: 800,
-        height: 30,
-        "& .MuiChip-label": { px: 1.2 },
-        "&:hover": {
-          borderColor: "rgba(214,198,161,0.6)",
-          backgroundColor: "rgba(214,198,161,0.06)",
-          color: "var(--sand-primary)",
-        },
-      }}
-    />
   )
 }
 

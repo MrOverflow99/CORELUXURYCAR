@@ -1,25 +1,13 @@
-export type ConsentPreferences = {
-  necessary: true;        // siempre true
-  analytics: boolean;
-  marketing: boolean;
-};
-
-export type ConsentState = {
-  version: number;        // para invalidar consentimientos viejos si cambias algo
-  updatedAt: string;      // ISO date
-  prefs: ConsentPreferences;
-};
-
 export const CONSENT_VERSION = 1;
 export const CONSENT_STORAGE_KEY = "clc_cookie_consent_v1";
 
-export const defaultPrefs: ConsentPreferences = {
+export const defaultPrefs = {
   necessary: true,
   analytics: false,
   marketing: false,
 };
 
-export function buildState(prefs: Omit<ConsentPreferences, "necessary"> & { necessary?: true }): ConsentState {
+export function buildState(prefs) {
   return {
     version: CONSENT_VERSION,
     updatedAt: new Date().toISOString(),
@@ -31,11 +19,11 @@ export function buildState(prefs: Omit<ConsentPreferences, "necessary"> & { nece
   };
 }
 
-export function loadConsent(): ConsentState | null {
+export function loadConsent() {
   try {
     const raw = localStorage.getItem(CONSENT_STORAGE_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as ConsentState;
+    const parsed = JSON.parse(raw);
 
     if (!parsed || parsed.version !== CONSENT_VERSION) return null;
     if (!parsed.prefs || parsed.prefs.necessary !== true) return null;
@@ -46,6 +34,6 @@ export function loadConsent(): ConsentState | null {
   }
 }
 
-export function saveConsent(state: ConsentState) {
+export function saveConsent(state) {
   localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(state));
 }

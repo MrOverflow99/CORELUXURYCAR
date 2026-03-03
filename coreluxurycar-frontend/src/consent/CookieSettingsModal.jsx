@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -18,19 +18,7 @@ import { useConsent } from "./ConsentContext";
 
 const MotionBox = motion.create(Box);
 
-function Row({
-  title,
-  desc,
-  value,
-  disabled,
-  onChange,
-}: {
-  title: string;
-  desc: string;
-  value: boolean;
-  disabled?: boolean;
-  onChange?: (v: boolean) => void;
-}) {
+function Row({ title, desc, value, disabled, onChange }) {
   return (
     <Stack direction="row" spacing={2} alignItems="flex-start" justifyContent="space-between" sx={{ py: 1.4 }}>
       <Box sx={{ pr: 2, flex: 1 }}>
@@ -48,8 +36,8 @@ export default function CookieSettingsModal() {
   const [localAnalytics, setLocalAnalytics] = useState(prefs.analytics);
   const [localMarketing, setLocalMarketing] = useState(prefs.marketing);
 
-  // Mantener UI sincronizada cuando se abra
-  React.useEffect(() => {
+  // Keep UI in sync when modal opens
+  useEffect(() => {
     if (isSettingsOpen) {
       setLocalAnalytics(prefs.analytics);
       setLocalMarketing(prefs.marketing);
